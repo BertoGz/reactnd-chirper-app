@@ -5,7 +5,7 @@ import {setAuthedUserAction} from './authedUser'
 
 const AUTHED_ID='sarah_edo'
 
-export funtion handleInitialData(){
+export function handleInitialData(){
 	return (dispatch)=>{
 		return getInitialData().then(({users,tweets})=>{
 			dispatch(recieveUsersAction(users))
