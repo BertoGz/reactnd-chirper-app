@@ -10,10 +10,16 @@ class App extends Component {
   render() {
     return (
       <div>
-       	<Dashboard/>
+       {this.props.loading===true ? null : <Dashboard/> }
+       
       </div>
     )
   }
 }
 
+function mapToStateProps({authedUserReducer}){  // grabbing authed user prop from  store
+  return {
+    loading: authedUserReducer === null
+  }
+}
 export default connect()(App)
