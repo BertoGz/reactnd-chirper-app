@@ -1,10 +1,10 @@
-import {RECIEVE_USERS} from '../actions/users'
+import {RECEIVE_USERS} from '../actions/users'
 
 
 export default function usersReducer(state={},action){
 
 	switch(action.type){
-		case RECIEVE_USERS:
+		case RECEIVE_USERS:
 		return{
 			...state,...action.users
 		}

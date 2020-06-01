@@ -7,11 +7,18 @@ import {TiArrowBackOutline} from "react-icons/ti";
 import {TiHeartOutline} from "react-icons/ti";
 import {TiHeartFullOutline} from "react-icons/ti";
 
+import {handleToggleTweet} from '../actions/tweets'
 
 class Tweet extends Component{
 	handleLike = (e) =>{
 		e.preventDefault()
-		// todo like tweet
+		
+		const {dispatch, tweet, authedUserReducer} = this.props
+		dispatch(handleToggleTweet({
+			id: tweet.id,
+			hasLiked: tweet.hasLiked,
+			authedUserReducer
+		}))
 	}
 	toParent = (e,id)=> {
 		e.preventDefault()
@@ -24,7 +31,10 @@ class Tweet extends Component{
 			return <p>this tweet doesnt exist</p>
 		}
 
-		const {name, avatar, timestamp, text, hasLiked, likes, replies, id, parent} = tweet //same as this.props from props
+		 const {
+      name, avatar, timestamp, text, hasLiked, likes, replies, parent
+    } = tweet
+
 		return(
 			<div className="tweet">
 				<img src={avatar} alt={`Avatar of ${name}`}
@@ -57,15 +67,16 @@ class Tweet extends Component{
 }
 
 // we will grab these states into this componentes props
-function mapStateToProps({authedUserReducer,usersReducer,tweetsReducer},{id}){
-	const tweet = tweetsReducer[id];
-	const parentTweet = tweet ? tweetsReducer[tweet.replyingTo] : null  // if tweet is a thing return tweet
+function mapStateToProps ({authedUserReducer, usersReducer, tweetsReducer}, { id }) {
+  const tweet = tweetsReducer[id]
+  const parentTweet = tweet ? tweetsReducer[tweet.replyingTo] : null
 
-	return{
-		authedUserReducer, 
-		tweet: tweet ? formatTweet(tweet, usersReducer[tweet.author], authedUserReducer, parentTweet)
-		: null  // if tweet is a thing return tweet
-	}
+  return {
+    authedUserReducer,
+    tweet: tweet
+      ? formatTweet(tweet, usersReducer[tweet.author], authedUserReducer, parentTweet)
+      : null
+  }
 }
 
 export default connect(mapStateToProps)(Tweet)

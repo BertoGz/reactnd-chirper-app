@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {handleInitialData} from '../actions/shared'
 import Dashboard from './Dashboard'
 import LoadingBar from 'react-redux-loading'
+
 class App extends Component { 
 
 	componentDidMount(){
@@ -19,9 +20,14 @@ class App extends Component {
   }
 }
 
-function mapToStateProps({authedUserReducer}){  // grabbing authed user prop from  store
+
+
+
+function mapStateToProps({authedUserReducer}){  // grabbing authed user prop from  store
   return {
     loading: authedUserReducer === null
   }
 }
-export default connect()(App)
+export default connect(mapStateToProps)(App)
+
+
