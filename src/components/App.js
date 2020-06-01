@@ -11,11 +11,13 @@ class App extends Component {
 	componentDidMount(){
 		this.props.dispatch(handleInitialData())
 	}
+
   render() {
+ 
     return (
       <div>
       <LoadingBar/>
-       {this.props.loading===true ? null : <TweetPage/> }
+       {this.props.loading===true ? null : <TweetPage match={{params:{id:'8xf0y6ziyjabvozdd253nd'}}}/> }
        
       </div> 
     )
