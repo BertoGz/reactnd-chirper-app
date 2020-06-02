@@ -20,7 +20,8 @@ export default function tweetsReducer(state={},action){
 		}
 		case ADD_TWEET:
 			const {tweet}= action //grab tweet from the actions
-
+			// state.first.second[someId].fourth
+			//  replyingTo.replies
 			let replyingTo = {}
 			if (tweet.replyingTo!==null){
 				replyingTo={
@@ -40,3 +41,5 @@ export default function tweetsReducer(state={},action){
 	}
 
 }
+
+

@@ -8,8 +8,14 @@ import {TiHeartOutline} from "react-icons/ti";
 import {TiHeartFullOutline} from "react-icons/ti";
 
 import {handleToggleTweet} from '../actions/tweets'
+import {Link, Redirect} from 'react-router-dom'
 
 class Tweet extends Component{
+
+	state={
+		toHome: false,
+		link:''
+	}
 	handleLike = (e) =>{
 		e.preventDefault()
 		
@@ -23,6 +29,11 @@ class Tweet extends Component{
 	toParent = (e,id)=> {
 		e.preventDefault()
 		//todo redirect to parent tweet
+		const g = `/tweet/${id}`
+		console.log(g)
+		this.setState({link:g})
+		this.setState({toHome:true})
+
 	}
 	render(){
 		const {tweet} = this.props
@@ -31,12 +42,18 @@ class Tweet extends Component{
 			return <p>this tweet doesnt exist</p>
 		}
 
+
+		if (this.state.toHome===true){
+
+			return <Redirect to={this.state.link}/>
+		}
+
 		 const {
-      name, avatar, timestamp, text, hasLiked, likes, replies, parent
+      name, avatar, timestamp, text, hasLiked, likes, replies, parent, id
     } = tweet
 
 		return(
-			<div className="tweet">
+			<Link to={`/tweet/${id}`}className="tweet">  {/*wrapped in a link so that its clickable*/}
 				<img src={avatar} alt={`Avatar of ${name}`}
 				className='avatar'/>
 				<div className='tweet-info'>
@@ -61,7 +78,7 @@ class Tweet extends Component{
 							<span>{likes!==0 && likes}</span>  
 						</div>
 				</div>
-			</div>
+			</Link>
 		)
 	}
 }
